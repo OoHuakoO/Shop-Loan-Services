@@ -13,7 +13,7 @@ app.use(
   })
 );
 
-mongoose.connect(process.env.CONNECT_DB, {
+mongoose.connect(process.env.MONGODB_URI, {
   dbName: process.env.DB_NAME,
   user: process.env.USER_DB,
   pass: process.env.PASS_DB,
@@ -43,3 +43,5 @@ app.use((err, req, res, next) => {
 app.listen(port, "0.0.0.0", () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+module.exports = app;
