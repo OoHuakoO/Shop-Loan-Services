@@ -26,6 +26,10 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
+app.get("/", (req, res) => {
+  res.json({ message: "ok" });
+});
+
 app.use("/customer-profile", customerProfile);
 
 app.use((err, req, res, next) => {
