@@ -5,13 +5,13 @@ const programmingLanguagesController = require('../controllers/programmingLangua
 /* GET programming languages. */
 router.get('/', programmingLanguagesController.get);
   
-/* POST programming language */
-router.post('/', programmingLanguagesController.create);
+// /* POST programming language */
+// router.post('/', programmingLanguagesController.create);
 
-/* PUT programming language */
-router.put('/:id', programmingLanguagesController.update);
+// /* PUT programming language */
+// router.put('/:id', programmingLanguagesController.update);
 
-/* DELETE programming language */
-router.delete('/:id', programmingLanguagesController.remove);
+// /* DELETE programming language */
+// router.delete('/:id', programmingLanguagesController.remove);
 
 module.exports = router;
