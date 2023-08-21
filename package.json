@@ -1,5 +1,5 @@
 {
-  "name": "expressjs-structure",
+  "name": "shop-loan-services",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,6 +7,18 @@
     "start": "node index.js",
     "test": "jest"
   },
+  "builds":[
+    {  
+      "src":"index.js",
+      "use":"@now/node"
+    }
+  ],
+  "routes":[
+    {
+      "src" : "/(.*)",
+      "dest":"index.js"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geshan/expressjs-structure.git"
