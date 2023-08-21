@@ -13,7 +13,11 @@ app.use(
   })
 );
 
-mongoose.connect(process.env.CONNECT_DB);
+mongoose.connect(process.env.CONNECT_DB, {
+  dbName: process.env.DB_NAME,
+  user: process.env.USER_DB,
+  pass: process.env.PASS_DB,
+});
 
 const db = mongoose.connection;
 
