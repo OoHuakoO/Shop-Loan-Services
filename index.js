@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT || 3000;
 const customerProfile = require("./src/routes/customerProfile.route");
+const user = require("./src/routes/user.route");
 
 app.use(bodyParser.json());
 app.use(
@@ -26,17 +27,13 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-app.get("/", (req, res) => {
-  res.json({ message: "ok" });
-});
-
 app.use("/customer-profile", customerProfile);
+app.use("/user", user);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   console.error(err.message, err.stack);
   res.status(statusCode).json({ message: err.message });
-
   return;
 });
 

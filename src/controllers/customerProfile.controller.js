@@ -7,14 +7,12 @@ async function getCustomerProfileByIDCard(req, res, next) {
       req?.params?.IDCard
     );
 
-    let response = await customerProfileService.findByIDCard(
+    let customer = await customerProfileService.findByIDCard(
       req?.params?.IDCard
     );
+
     res.json({
-      data: {
-        customerProfile: response?.customerProfile,
-        countCustomerProfile: response?.countCustomerProfile,
-      },
+      data: customer,
       status: 200,
     });
   } catch (err) {
@@ -34,15 +32,13 @@ async function create(req, res, next) {
       JSON.stringify(req?.body, null, 2)
     );
 
-    let responseFindByIDCard = await customerProfileService.findByIDCard(
-      req?.body?.IDCard
-    );
-    if (responseFindByIDCard?.countCustomerProfile > 0) {
-      let responseUpdate = await customerProfileService.updateByIDCard(req);
-      res.json({ data: responseUpdate, status: 200 });
+    let customer = await customerProfileService.findByIDCard(req?.body?.IDCard);
+    if (customer) {
+      let customerUpdate = await customerProfileService.updateByIDCard(req);
+      res.json({ data: customerUpdate, status: 200 });
     } else {
-      let responseCreate = await customerProfileService.create(req);
-      res.json({ data: responseCreate, status: 200 });
+      let customerCreate = await customerProfileService.create(req);
+      res.json({ data: customerCreate, status: 200 });
     }
   } catch (err) {
     console.error(

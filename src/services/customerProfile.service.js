@@ -67,18 +67,9 @@ async function findByIDCard(IDCard) {
   try {
     console.log("start customerProfile.service findByIDCard IDCard:", IDCard);
 
-    const customerProfile = await CustomerProfile.findOne({ IDCard: IDCard });
+    const customer = await CustomerProfile.findOne({ IDCard: IDCard });
 
-    const countCustomerProfile = await CustomerProfile.countDocuments({
-      IDCard: IDCard,
-    });
-
-    console.log("findByIDCard customer profile successfully", customerProfile);
-
-    return {
-      customerProfile: customerProfile,
-      countCustomerProfile: countCustomerProfile,
-    };
+    return customer;
   } catch (error) {
     console.error(
       "customerProfile.service error while findByIDCard customer profile:",

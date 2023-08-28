@@ -3,9 +3,11 @@ const router = express.Router();
 const customerProfileController = require("../controllers/customerProfile.controller");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
+const auth = require("../middlewares/auth.middleware");
 
 router.get(
   "/find-by-id-card/:IDCard",
+  auth,
   customerProfileController.getCustomerProfileByIDCard
 );
 
