@@ -25,10 +25,10 @@ async function getCustomerProfileByIDCard(req, res, next) {
   }
 }
 
-async function create(req, res, next) {
+async function createCustomer(req, res, next) {
   try {
     console.log(
-      "start create.controller req body:",
+      "start createCustomer.controller req body:",
       JSON.stringify(req?.body, null, 2)
     );
 
@@ -42,7 +42,7 @@ async function create(req, res, next) {
     }
   } catch (err) {
     console.error(
-      `create.controller error while creating customer profile`,
+      `createCustomer.controller error while creating customer profile`,
       err.message
     );
     res.json({ data: err.message, status: 500 });
@@ -52,5 +52,5 @@ async function create(req, res, next) {
 
 module.exports = {
   getCustomerProfileByIDCard,
-  create,
+  createCustomer,
 };
