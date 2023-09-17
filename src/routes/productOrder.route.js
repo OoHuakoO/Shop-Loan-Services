@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const productController = require("../controllers/product.controller");
+const productOrderController = require("../controllers/productOrder.controller");
 
-router.get("/search", productController.getProducts);
+router.post("/create-upsert", productOrderController.createProductOrder);
 
 // router.get("/suggestion-product-name/:productName", productOrderController.login);
 

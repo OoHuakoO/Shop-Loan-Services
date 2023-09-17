@@ -19,7 +19,7 @@ async function create(req) {
 
     const savedProfile = await newCustomerProfile.save();
 
-    console.log("save customerProfile successfully", savedProfile);
+    console.log("save customerProfile successfully");
 
     return newCustomerProfile;
   } catch (error) {
@@ -46,17 +46,17 @@ async function updateByIDCard(req) {
       ...{ pathURLProfile: partURLProfile, pathURLThaiID: partURLThaiID },
     };
 
-    await CustomerProfile.updateMany(
+    await CustomerProfile.updateOne(
       { IDCard: req?.body?.IDCard },
       { $set: newCustomerProfile }
     );
 
-    console.log("update customerProfile successfully ", newCustomerProfile);
+    console.log("update customerProfile successfully");
 
     return newCustomerProfile;
   } catch (error) {
     console.error(
-      "customerProfile.service error while creating customer profile:",
+      "customerProfile.service error while update customer profile:",
       error
     );
     throw error;

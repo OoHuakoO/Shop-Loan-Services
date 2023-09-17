@@ -14,13 +14,13 @@ router.get(
 router.post(
   "/create-upsert-borrower",
   upload.fields([{ name: "thaiID" }, { name: "profile" }]),
-  customerProfileController.create
+  customerProfileController.createCustomer
 );
 
 router.post(
   "/create-upsert-guarantor",
   upload.fields([{ name: "thaiID" }, { name: "profile" }]),
-  customerProfileController.create
+  customerProfileController.createCustomer
 );
 
 module.exports = router;

@@ -4,11 +4,12 @@ const ProductSchema = new mongoose.Schema(
   {
     code: {
       type: String,
+      unique: true,
     },
     name: {
       type: String,
     },
-    price: {
+    cost: {
       type: Number,
     },
     unit: {
@@ -16,6 +17,15 @@ const ProductSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
+    },
+    shop: {
+      type: String,
+    },
+    manufacturer: {
+      type: String,
+    },
+    type: {
+      type: String,
     },
   },
   { versionKey: false }

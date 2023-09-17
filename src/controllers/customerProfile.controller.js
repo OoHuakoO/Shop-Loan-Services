@@ -17,7 +17,7 @@ async function getCustomerProfileByIDCard(req, res, next) {
     });
   } catch (err) {
     console.error(
-      `createBorrower.controller error while creating customer profile`,
+      `getCustomerProfileByIDCard.controller error while creating customer profile`,
       err.message
     );
     res.json({ data: err.message, status: 500 });
@@ -34,11 +34,11 @@ async function createCustomer(req, res, next) {
 
     let customer = await customerProfileService.findByIDCard(req?.body?.IDCard);
     if (customer) {
-      let customerUpdate = await customerProfileService.updateByIDCard(req);
-      res.json({ data: customerUpdate, status: 200 });
+      await customerProfileService.updateByIDCard(req);
+      res.json({ data: "", status: 200 });
     } else {
-      let customerCreate = await customerProfileService.create(req);
-      res.json({ data: customerCreate, status: 200 });
+      await customerProfileService.create(req);
+      res.json({ data: "", status: 200 });
     }
   } catch (err) {
     console.error(

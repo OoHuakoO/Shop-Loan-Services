@@ -4,11 +4,9 @@ const ProductOrderSchema = new mongoose.Schema(
   {
     bill: {
       type: String,
-      unique: true,
     },
     code: {
       type: String,
-      unique: true,
     },
     manufacturer: {
       type: String,
@@ -49,10 +47,14 @@ const ProductOrderSchema = new mongoose.Schema(
     sell5: {
       type: Number,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   { versionKey: false }
 );
 
-const ProductOrder = mongoose.model("product", ProductOrderSchema);
+const ProductOrder = mongoose.model("productOrder", ProductOrderSchema);
 
 module.exports = ProductOrder;

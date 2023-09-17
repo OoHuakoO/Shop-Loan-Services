@@ -1,40 +1,22 @@
-const customerProfileService = require("../services/customerProfile.service");
+const productOrderService = require("../services/productOrder.service");
 
-async function getProductAll(req, res, next) {
+const productService = require("../services/product.service");
+const mongoose = require("mongoose");
+
+async function getProducts(req, res, next) {
   try {
-    console.log(
-      "start getCustomerProfileByIDCard.controller  req params type :",
-      req?.params?.type
-    );
+    console.log("start getProducts.controller req query search :", req?.query);
 
-    let product = await customerProfileService.findByIDCard(req?.params?.type);
+    let products = await productService.search(req?.query);
 
     res.json({
-      data: product,
+      data: products.data,
+      total: products.total,
       status: 200,
     });
   } catch (err) {
     console.error(
-      `createBorrower.controller error while creating customer profile`,
-      err.message
-    );
-    res.json({ data: err.message, status: 500 });
-    next(err);
-  }
-}
-
-async function createProduct(req, res, next) {
-  try {
-    console.log(
-      "start createProduct.controller req body:",
-      JSON.stringify(req?.body, null, 2)
-    );
-
-    let customerCreate = await customerProfileService.create(req);
-    res.json({ data: customerCreate, status: 200 });
-  } catch (err) {
-    console.error(
-      `createProduct.controller error while creating customer profile`,
+      `getProducts.controller error while creating product`,
       err.message
     );
     res.json({ data: err.message, status: 500 });
@@ -43,6 +25,5 @@ async function createProduct(req, res, next) {
 }
 
 module.exports = {
-  getProductAll,
-  createProduct,
+  getProducts,
 };
