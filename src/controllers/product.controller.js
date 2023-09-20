@@ -1,7 +1,4 @@
-const productOrderService = require("../services/productOrder.service");
-
 const productService = require("../services/product.service");
-const mongoose = require("mongoose");
 
 async function getProducts(req, res, next) {
   try {
@@ -16,7 +13,7 @@ async function getProducts(req, res, next) {
     });
   } catch (err) {
     console.error(
-      `getProducts.controller error while creating product`,
+      `getProducts.controller error while find products`,
       err.message
     );
     res.json({ data: err.message, status: 500 });

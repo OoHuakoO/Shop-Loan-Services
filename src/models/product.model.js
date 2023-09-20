@@ -27,6 +27,21 @@ const ProductSchema = new mongoose.Schema(
     type: {
       type: String,
     },
+    sell1: {
+      type: Number,
+    },
+    sell2: {
+      type: Number,
+    },
+    sell3: {
+      type: Number,
+    },
+    sell4: {
+      type: Number,
+    },
+    sell5: {
+      type: Number,
+    },
   },
   { versionKey: false }
 );

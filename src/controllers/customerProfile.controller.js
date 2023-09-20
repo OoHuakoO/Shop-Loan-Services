@@ -17,7 +17,7 @@ async function getCustomerProfileByIDCard(req, res, next) {
     });
   } catch (err) {
     console.error(
-      `getCustomerProfileByIDCard.controller error while creating customer profile`,
+      `getCustomerProfileByIDCard.controller error while find customer by IDCard `,
       err.message
     );
     res.json({ data: err.message, status: 500 });

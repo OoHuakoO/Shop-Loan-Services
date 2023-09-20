@@ -77,17 +77,25 @@ async function search(query) {
     console.log("start product.service search query:", query);
     const offset = parseInt(query?.offset || "0", 10);
     const limit = parseInt(query?.limit || "10", 10);
+    const querySearch = {};
 
-    const querySearch = {
-      code: new RegExp(`.*${query?.code}.*`, "i"),
-      name: new RegExp(`.*${query?.name}.*`, "i"),
-      manufacturer: new RegExp(`.*${query?.manufacturer}.*`, "i"),
-      type: new RegExp(`.*${query?.type}.*`, "i"),
-    };
+    if (query?.code !== "") {
+      querySearch.code = new RegExp(`.*${query?.code}.*`, "i");
+    }
+    if (query?.name !== "") {
+      querySearch.name = new RegExp(`.*${query?.name}.*`, "i");
+    }
+    if (querySearch?.manufacturer !== "") {
+      querySearch.manufacturer = new RegExp(`.*${query?.manufacturer}.*`, "i");
+    }
+    if (querySearch?.type !== "") {
+      querySearch.type = new RegExp(`.*${query?.type}.*`, "i");
+    }
 
     const products = await Product.find(querySearch).skip(offset).limit(limit);
-
-    const total = await Product.countDocuments(querySearch);
+    const total = await Product.countDocuments(querySearch)
+      .skip(offset)
+      .limit(limit);
 
     return { data: products, total: total };
   } catch (error) {
