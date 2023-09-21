@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const ProductOrder = require("../models/productOrder.model");
 
 async function create(products, options = {}) {
@@ -9,13 +8,12 @@ async function create(products, options = {}) {
     );
     const session = options.session || null;
 
-    const savedProductOrder = await ProductOrder.insertMany(products, {
-      session,
-    });
+    const productOrderModel = new ProductOrder(products);
+    await productOrderModel.save({ session });
 
-    console.log("insert productOrder successfully", savedProductOrder);
+    console.log("save productOrder successfully");
 
-    return savedProductOrder;
+    return;
   } catch (error) {
     console.error(
       " productOrder.service error while create productOrder:",

@@ -17,11 +17,11 @@ async function create(req) {
       ...{ pathURLProfile: partURLProfile, pathURLThaiID: partURLThaiID },
     });
 
-    const savedProfile = await newCustomerProfile.save();
+    await newCustomerProfile.save();
 
     console.log("save customerProfile successfully");
 
-    return newCustomerProfile;
+    return;
   } catch (error) {
     console.error(
       "customerProfile.service error while creating customer profile:",
@@ -53,7 +53,7 @@ async function updateByIDCard(req) {
 
     console.log("update customerProfile successfully");
 
-    return newCustomerProfile;
+    return;
   } catch (error) {
     console.error(
       "customerProfile.service error while update customer profile:",

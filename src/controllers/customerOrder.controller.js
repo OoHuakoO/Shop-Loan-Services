@@ -1,15 +1,15 @@
-const productOrderService = require("../services/productOrder.service");
+const customerOrderService = require("../services/customerOrder.service");
 
 const productService = require("../services/product.service");
 const mongoose = require("mongoose");
 
-async function createProductOrder(req, res, next) {
+async function createCustomerOrder(req, res, next) {
   const session = await mongoose.startSession();
   session.startTransaction();
 
   try {
     console.log(
-      "start createProductOrder.controller req body:",
+      "start createCustomerOrder.controller req body:",
       JSON.stringify(req?.body?.products, null, 2)
     );
 
@@ -18,13 +18,15 @@ async function createProductOrder(req, res, next) {
       let product = await productService.findByProductID(item?.productID, {
         session,
       });
-      if (product) {
-        await productService.updateByProductID(item, product, { session });
-        await productOrderService.create(item, { session });
-      } else {
-        await productService.create(item, { session });
-        await productOrderService.create(item, { session });
-      }
+      const balanceAmount = product?.amount - item?.amount;
+      await productService.buyProduct(product?.productID, balanceAmount, {
+        session,
+      });
+
+      item.profit = item?.pricePerUnit - product?.cost;
+      item.totalProfit = item?.profit * item?.amount;
+
+      await customerOrderService.create(item, { session });
     }
 
     await session.commitTransaction();
@@ -44,5 +46,5 @@ async function createProductOrder(req, res, next) {
 }
 
 module.exports = {
-  createProductOrder,
+  createCustomerOrder,
 };

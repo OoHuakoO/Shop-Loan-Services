@@ -9,6 +9,7 @@ const user = require("./src/routes/user.route");
 const productOrder = require("./src/routes/productOrder.route");
 const product = require("./src/routes/product.route");
 const customer = require("./src/routes/customer.route");
+const customerOrder = require("./src/routes/customerOrder.route");
 
 app.use(bodyParser.json());
 app.use(
@@ -35,6 +36,7 @@ app.use("/user", user);
 app.use("/product-order", productOrder);
 app.use("/product", product);
 app.use("/customer", customer);
+app.use("/customer-order", customerOrder);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

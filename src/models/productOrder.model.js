@@ -5,7 +5,7 @@ const ProductOrderSchema = new mongoose.Schema(
     bill: {
       type: String,
     },
-    code: {
+    productID: {
       type: String,
     },
     manufacturer: {
@@ -21,9 +21,6 @@ const ProductOrderSchema = new mongoose.Schema(
       type: String,
     },
     amount: {
-      type: Number,
-    },
-    discount: {
       type: Number,
     },
     shop: {

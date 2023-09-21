@@ -9,21 +9,21 @@ async function create(product, options = {}) {
     const session = options.session || null;
 
     const productModel = new Product(product);
-    const savedProduct = await productModel.save({ session });
+    await productModel.save({ session });
 
-    console.log("insert product successfully");
+    console.log("save product successfully");
 
-    return savedProduct;
+    return;
   } catch (error) {
     console.error("product.service error while creating product:", error);
     throw error;
   }
 }
 
-async function updateByCode(newProduct, oldProduct, options = {}) {
+async function updateByProductID(newProduct, oldProduct, options = {}) {
   try {
     console.log(
-      "start product.service updateByCode newProduct:",
+      "start product.service updateByProductID newProduct:",
       JSON.stringify(newProduct, null, 2),
       "oldProduct :",
       JSON.stringify(oldProduct, null, 2)
@@ -44,30 +44,60 @@ async function updateByCode(newProduct, oldProduct, options = {}) {
     };
 
     await Product.updateOne(
-      { code: oldProduct?.code },
+      { productID: oldProduct?.productID },
       { $set: updateProduct },
       { session }
     );
 
     console.log("update product successfully");
 
-    return updateProduct;
+    return;
   } catch (error) {
     console.error("product.service error while update product:", error);
     throw error;
   }
 }
 
-async function findByCode(code, options = {}) {
+async function buyProduct(productID, amount, options = {}) {
   try {
-    console.log("start product.service findByCode code:", code);
+    console.log(
+      "start product.service buyProduct productID :",
+      productID,
+      "amount :",
+      amount
+    );
     const session = options.session || null;
 
-    const product = await Product.findOne({ code: code }, null, { session });
+    await Product.updateOne(
+      { productID: productID },
+      { $set: { amount: amount } },
+      { session }
+    );
+
+    console.log("update product successfully");
+
+    return;
+  } catch (error) {
+    console.error("product.service error while update product:", error);
+    throw error;
+  }
+}
+
+async function findByProductID(productID, options = {}) {
+  try {
+    console.log("start product.service findByProductID productID:", productID);
+    const session = options.session || null;
+
+    const product = await Product.findOne({ productID: productID }, null, {
+      session,
+    });
 
     return product;
   } catch (error) {
-    console.error("product.service error while findByCode product:", error);
+    console.error(
+      "product.service error while  findByProductID  product:",
+      error
+    );
     throw error;
   }
 }
@@ -79,8 +109,8 @@ async function search(query) {
     const limit = parseInt(query?.limit || "10", 10);
     const querySearch = {};
 
-    if (query?.code !== "") {
-      querySearch.code = new RegExp(`.*${query?.code}.*`, "i");
+    if (query?.productID !== "") {
+      querySearch.productID = new RegExp(`.*${query?.productID}.*`, "i");
     }
     if (query?.name !== "") {
       querySearch.name = new RegExp(`.*${query?.name}.*`, "i");
@@ -106,7 +136,8 @@ async function search(query) {
 
 module.exports = {
   create,
-  updateByCode,
-  findByCode,
+  updateByProductID,
+  findByProductID,
   search,
+  buyProduct,
 };

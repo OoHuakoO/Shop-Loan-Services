@@ -11,7 +11,7 @@ async function create(req) {
     await newCustomer.save();
     console.log("save customer successfully");
 
-    return newCustomer;
+    return;
   } catch (error) {
     console.error("customer.service error while creating customer:", error);
     throw error;
@@ -32,7 +32,7 @@ async function updateByCustomerID(req) {
 
     console.log("update customer successfully");
 
-    return req?.body;
+    return;
   } catch (error) {
     console.error("customer.service error while update customer:", error);
     throw error;
